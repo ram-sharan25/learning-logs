@@ -1,0 +1,77 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  const learnings = await getCollection("learnings");
+  return learnings.map((learning) => ({
+    params: { slug: learning.slug },
+    props: { learning },
+  }));
+}
+
+const { learning } = Astro.props;
+const { Content } = await learning.render();
+---
+
+<BaseLayout title={`${learning.data.title} - Learning Logs`}>
+  <article class="max-w-3xl mx-auto">
+    <!-- Header -->
+    <header class="mb-8">
+      <h1 class="text-4xl font-bold mb-4 text-solarized-blue">
+        {learning.data.title}
+      </h1>
+
+      <div class="flex flex-wrap items-center gap-4 text-sm text-solarized-base00 mb-4">
+        <time datetime={learning.data.date.toISOString()}>
+          {
+            learning.data.date.toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })
+          }
+        </time>
+        {
+          learning.data.area && (
+            <span class="text-solarized-cyan">{learning.data.area}</span>
+          )
+        }
+        {
+          learning.data.project && (
+            <span class="text-solarized-base01">
+              Project: {learning.data.project}
+            </span>
+          )
+        }
+      </div>
+
+      {
+        learning.data.tags.length > 0 && (
+          <div class="flex gap-2 flex-wrap">
+            {learning.data.tags.map((tag) => (
+              <span class="px-3 py-1 bg-solarized-base02 border border-solarized-base01 rounded text-solarized-cyan text-sm">
+                #{tag}
+              </span>
+            ))}
+          </div>
+        )
+      }
+    </header>
+
+    <!-- Content -->
+    <div class="prose prose-invert max-w-none">
+      <Content />
+    </div>
+
+    <!-- Navigation -->
+    <footer class="mt-12 pt-8 border-t border-solarized-base02">
+      <a
+        href="/learnings"
+        class="text-solarized-blue hover:text-solarized-cyan transition-colors"
+      >
+        ← Back to all learnings
+      </a>
+    </footer>
+  </article>
+</BaseLayout>

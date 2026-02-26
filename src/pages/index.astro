@@ -1,0 +1,168 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const allPosts = await getCollection("blog", ({ data }) => !data.draft);
+const recentPosts = allPosts
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+---
+
+<BaseLayout title="Ram Sharan Rimal - Software Engineer & Learner">
+  <div class="space-y-8">
+    <!-- Hero Section -->
+    <section class="py-12">
+      <h1 class="text-4xl font-bold mb-4">
+        <span class="terminal-prompt"></span>Hello, I'm Ram<span class="cursor"
+        ></span>
+      </h1>
+      <p class="text-xl text-solarized-base0 mb-6">
+        Software Engineer specializing in full-stack development with React,
+        Node.js, and TypeScript. Currently a Graduate Research Assistant at
+        NASA-IMPACT.
+      </p>
+      <div class="flex gap-4">
+        <a
+          href="/blog"
+          class="px-6 py-3 bg-solarized-base02 border-2 border-solarized-blue text-solarized-blue hover:bg-solarized-blue hover:text-solarized-base03 transition-all rounded"
+        >
+          Read My Blog →
+        </a>
+      </div>
+    </section>
+
+    <!-- Recent Posts -->
+    {
+      recentPosts.length > 0 && (
+        <section>
+          <h2 class="text-2xl font-bold mb-6 border-l-4 border-solarized-blue pl-4">
+            Recent Posts
+          </h2>
+          <div class="space-y-4">
+            {recentPosts.map((post) => (
+              <article class="p-6 bg-solarized-base02 border border-solarized-base01 rounded-lg hover:border-solarized-blue transition-all">
+                <a href={`/blog/${post.slug}`} class="group">
+                  <h3 class="text-xl font-bold mb-2 text-solarized-blue group-hover:text-solarized-cyan transition-colors">
+                    {post.data.title}
+                  </h3>
+                  {post.data.description && (
+                    <p class="text-solarized-base0 mb-2">
+                      {post.data.description}
+                    </p>
+                  )}
+                  <div class="flex items-center gap-4 text-sm text-solarized-base00">
+                    <time datetime={post.data.date.toISOString()}>
+                      {post.data.date.toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })}
+                    </time>
+                    {post.data.tags.length > 0 && (
+                      <div class="flex gap-2">
+                        {post.data.tags.map((tag) => (
+                          <span class="px-2 py-1 bg-solarized-base03 border border-solarized-base02 rounded text-solarized-cyan">
+                            #{tag}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </a>
+              </article>
+            ))}
+          </div>
+          <a
+            href="/blog"
+            class="inline-block mt-6 text-solarized-blue hover:text-solarized-cyan transition-colors"
+          >
+            View all posts →
+          </a>
+        </section>
+      )
+    }
+
+    <!-- About Section -->
+    <section class="py-8">
+      <h2 class="text-2xl font-bold mb-6 border-l-4 border-solarized-blue pl-4">
+        About Me
+      </h2>
+      <div class="space-y-4 text-solarized-base0">
+        <p>
+          I'm a versatile Software Engineer with 4+ years of professional
+          experience in full-stack development, specializing in React, Node.js,
+          and TypeScript. Currently pursuing my Masters in Computer Science at
+          the University of Alabama in Huntsville while working as a Graduate
+          Research Assistant at NASA.
+        </p>
+        <p>
+          I'm passionate about building scalable web applications, exploring
+          modern web technologies, and documenting my learning journey. My
+          interests include Computer Systems, Software Engineering, Philosophy,
+          Learning.
+        </p>
+        <p>
+          When I'm not coding, you'll find me reading books, playing with my
+          emacs config, pruning my notes, writing, or traveling.
+        </p>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="py-8 border-t border-solarized-base02">
+      <h2 class="text-2xl font-bold mb-6 border-l-4 border-solarized-blue pl-4">
+        Contact
+      </h2>
+      <div class="space-y-3 text-solarized-base0">
+        <p>
+          <span class="text-solarized-base00">Email:</span>
+          <a
+            href="mailto:rimal.ram25@gmail.com"
+            class="text-solarized-cyan hover:text-solarized-blue transition-colors ml-2"
+          >
+            rimal.ram25@gmail.com
+          </a>
+        </p>
+        <p>
+          <span class="text-solarized-base00">Phone:</span>
+          <a
+            href="tel:+19382320365"
+            class="text-solarized-cyan hover:text-solarized-blue transition-colors ml-2"
+          >
+            +1 (938) 232-0365
+          </a>
+        </p>
+        <p>
+          <span class="text-solarized-base00">GitHub:</span>
+          <a
+            href="https://github.com/ram-sharan25"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-solarized-cyan hover:text-solarized-blue transition-colors ml-2"
+          >
+            github.com/ram-sharan25
+          </a>
+        </p>
+        <p>
+          <span class="text-solarized-base00">LinkedIn:</span>
+          <a
+            href="https://www.linkedin.com/in/ram-sharan-rimal-b36493152/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-solarized-cyan hover:text-solarized-blue transition-colors ml-2"
+          >
+            linkedin.com/in/ram-sharan-rimal
+          </a>
+        </p>
+        <p class="pt-2">
+          <span class="text-solarized-base00">Location:</span>
+          <span class="ml-2">Huntsville, Alabama, USA</span>
+        </p>
+        <p>
+          <span class="text-solarized-base00">Status:</span>
+          <span class="ml-2">Graduate Student & Research Assistant • Open to opportunities</span>
+        </p>
+      </div>
+    </section>
+  </div>
+</BaseLayout>

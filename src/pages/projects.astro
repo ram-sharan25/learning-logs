@@ -1,0 +1,130 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+
+const projects = [
+  {
+    title: 'NASA Earth.gov CMS Platform',
+    description: 'Multi-tenant content management system built with Next.js and TinaCMS, enabling seamless content management across multiple entities via git-based MDX workflows for NASA Earth Science data.',
+    technologies: ['Next.js', 'TinaCMS', 'React', 'TypeScript', 'MDX', 'AWS'],
+    period: 'Aug 2024 - Present',
+    highlights: [
+      'Automated provisioning of high-availability AWS infrastructure using Terraform',
+      'Implemented git-based workflows for content management',
+      'Built reusable component library for scientific data visualization'
+    ]
+  },
+  {
+    title: 'Geospatial Visualization Tools',
+    description: 'Interactive mapping and visualization platform for NASA Earthdata using React, TypeScript, and MapboxGL, providing dynamic access to global research data.',
+    technologies: ['React', 'TypeScript', 'MapboxGL', 'STAC', 'APIs'],
+    period: 'Aug 2024 - Present',
+    highlights: [
+      'Developed reusable functional libraries for geospatial analysis',
+      'Integrated cloud-hosted APIs and STAC-based metadata',
+      'Enabled rapid deployment of interfaces for diverse scientific requirements'
+    ]
+  },
+  {
+    title: 'Proma.ai - B2B Marketplace',
+    description: 'Full-scale online B2B marketplace platform built from scratch, handling thousands of monthly users with high availability and scalability.',
+    technologies: ['Node.js', 'React', 'TypeScript', 'PostgreSQL', 'AWS'],
+    period: 'Dec 2022 - Jul 2024',
+    highlights: [
+      'Led system design and data modeling from inception to commercial SaaS',
+      'Architected modular architecture for scalability',
+      'Built comprehensive testing and monitoring system'
+    ]
+  },
+  {
+    title: 'Automated Testing & Monitoring System',
+    description: 'End-to-end testing and monitoring solution using Cloudflare, Puppeteer, and ReactJS to identify performance bottlenecks and automate quality assurance.',
+    technologies: ['Puppeteer', 'Node.js', 'React', 'Cloudflare'],
+    period: '2023',
+    highlights: [
+      'Eliminated manual testing processes',
+      'Identified and resolved key performance bottlenecks',
+      'Improved service efficiency through automated monitoring'
+    ]
+  },
+  {
+    title: 'Vehicle Control Unit (VCU) Firmware',
+    description: 'Embedded firmware for electric vehicle control, handling critical motor control and real-time sensor data processing.',
+    technologies: ['C', 'C++', 'Embedded Systems', 'Motor Control', 'Real-time Systems'],
+    period: 'Feb 2021 - Jun 2022',
+    highlights: [
+      'Optimized firmware for real-time performance',
+      'Integrated custom motor control software',
+      'Processed critical sensor data for system efficiency'
+    ]
+  }
+];
+---
+
+<BaseLayout title="Projects - Ram Sharan Rimal">
+  <div>
+    <h1 class="text-4xl font-bold mb-8">
+      <span class="terminal-prompt"></span>Projects
+    </h1>
+
+    <div class="space-y-8">
+      {projects.map((project) => (
+        <article class="p-6 bg-solarized-base02 border border-solarized-base01 rounded-lg hover:border-solarized-blue transition-colors">
+          <div class="mb-4">
+            <div class="flex justify-between items-start mb-2">
+              <h2 class="text-2xl font-bold text-solarized-blue">
+                {project.title}
+              </h2>
+              <span class="text-solarized-base00 text-sm">
+                {project.period}
+              </span>
+            </div>
+            <p class="text-solarized-base00 text-lg">
+              {project.description}
+            </p>
+          </div>
+
+          <div class="mb-4">
+            <h3 class="text-sm font-bold text-solarized-cyan mb-2">
+              Technologies:
+            </h3>
+            <div class="flex flex-wrap gap-2">
+              {project.technologies.map((tech) => (
+                <span class="px-3 py-1 bg-solarized-base03 border border-solarized-base01 rounded text-sm text-solarized-cyan">
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <h3 class="text-sm font-bold text-solarized-cyan mb-2">
+              Key Highlights:
+            </h3>
+            <ul class="list-disc list-inside space-y-1 text-solarized-base00">
+              {project.highlights.map((highlight) => (
+                <li>{highlight}</li>
+              ))}
+            </ul>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <div class="mt-12 p-6 bg-solarized-base02 border-2 border-solarized-cyan rounded-lg">
+      <h2 class="text-xl font-bold text-solarized-cyan mb-4">
+        More Projects Coming Soon
+      </h2>
+      <p class="text-solarized-base00">
+        I'm constantly working on new projects and experiments. Check out my{' '}
+        <a href="https://github.com/ram-sharan25" target="_blank" rel="noopener noreferrer" class="text-solarized-blue hover:text-solarized-cyan">
+          GitHub
+        </a>
+        {' '}for more of my work, or follow my{' '}
+        <a href="/blog" class="text-solarized-blue hover:text-solarized-cyan">
+          blog
+        </a>
+        {' '}where I document my learning journey.
+      </p>
+    </div>
+  </div>
+</BaseLayout>

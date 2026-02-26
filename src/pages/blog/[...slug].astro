@@ -1,0 +1,56 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: post,
+  }));
+}
+
+const post = Astro.props;
+const { Content } = await post.render();
+---
+
+<BaseLayout title={post.data.title} description={post.data.description}>
+  <article class="prose prose-invert max-w-none">
+    <header class="mb-8 pb-8 border-b border-solarized-base02">
+      <h1 class="text-4xl font-bold mb-4 text-solarized-blue">
+        {post.data.title}
+      </h1>
+      <div class="flex items-center gap-4 text-solarized-base00">
+        <time datetime={post.data.date.toISOString()}>
+          {post.data.date.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+          })}
+        </time>
+        {post.data.tags.length > 0 && (
+          <div class="flex gap-2">
+            {post.data.tags.map((tag) => (
+              <span class="px-2 py-1 bg-solarized-base02 border border-solarized-base01 rounded text-solarized-cyan text-sm">
+                #{tag}
+              </span>
+            ))}
+          </div>
+        )}
+      </div>
+    </header>
+
+    <div class="blog-content">
+      <Content />
+    </div>
+
+    <footer class="mt-12 pt-8 border-t border-solarized-base02">
+      <a
+        href="/blog"
+        class="inline-flex items-center text-solarized-blue hover:text-solarized-cyan transition-colors"
+      >
+        ← Back to all posts
+      </a>
+    </footer>
+  </article>
+</BaseLayout>

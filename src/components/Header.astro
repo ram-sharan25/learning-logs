@@ -1,0 +1,36 @@
+---
+const currentPath = Astro.url.pathname;
+---
+
+<header class="border-b border-solarized-base02">
+  <nav class="container mx-auto px-4 py-4">
+    <div class="flex items-center justify-between">
+      <a
+        href="/"
+        class="text-solarized-blue font-bold text-xl hover:text-solarized-cyan border-none transition-colors"
+      >
+        <span class="terminal-prompt"></span>ram@sharan
+      </a>
+      <div class="flex gap-6">
+        <a
+          href="/"
+          class={`hover:text-solarized-blue border-none transition-colors ${currentPath === "/" ? "text-solarized-blue" : "text-solarized-base0"}`}
+        >
+          Home
+        </a>
+        <a
+          href="/blog"
+          class={`hover:text-solarized-blue border-none transition-colors ${currentPath.startsWith("/blog") ? "text-solarized-blue" : "text-solarized-base0"}`}
+        >
+          Blog
+        </a>
+        <a
+          href="/learnings"
+          class={`hover:text-solarized-blue border-none transition-colors ${currentPath.startsWith("/learnings") ? "text-solarized-blue" : "text-solarized-base0"}`}
+        >
+          Learning Logs
+        </a>
+      </div>
+    </div>
+  </nav>
+</header>

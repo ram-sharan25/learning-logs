@@ -1,0 +1,74 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const allLearnings = await getCollection("learnings", ({ data }) => !data.draft);
+const sortedLearnings = allLearnings.sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+---
+
+<BaseLayout title="Learning Logs - Ram Sharan Rimal">
+  <div class="space-y-8">
+    <!-- Header -->
+    <section>
+      <h1 class="text-4xl font-bold mb-4">
+        <span class="terminal-prompt"></span>Learning Logs<span class="cursor"
+        ></span>
+      </h1>
+      <p class="text-solarized-base0">
+        Raw notes, insights, and learnings from books, essays, and explorations.
+        Not polished blog posts—just honest reflections and connections.
+      </p>
+    </section>
+
+    <!-- Learnings List -->
+    <section>
+      {
+        sortedLearnings.length === 0 ? (
+          <p class="text-solarized-base00">No learning logs yet. Check back soon!</p>
+        ) : (
+          <div class="space-y-6">
+            {sortedLearnings.map((learning) => (
+              <article class="border-l-4 border-solarized-cyan pl-6 py-2 hover:border-solarized-blue transition-all">
+                <a href={`/learnings/${learning.slug}`} class="group">
+                  <h2 class="text-2xl font-bold mb-2 text-solarized-blue group-hover:text-solarized-cyan transition-colors">
+                    {learning.data.title}
+                  </h2>
+                  {learning.data.topic && (
+                    <p class="text-sm text-solarized-base00 mb-2">
+                      Topic: {learning.data.topic}
+                    </p>
+                  )}
+                  <div class="flex items-center gap-4 text-sm text-solarized-base00">
+                    <time datetime={learning.data.date.toISOString()}>
+                      {learning.data.date.toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })}
+                    </time>
+                    {learning.data.area && (
+                      <span class="text-solarized-cyan">
+                        {learning.data.area}
+                      </span>
+                    )}
+                    {learning.data.tags.length > 0 && (
+                      <div class="flex gap-2">
+                        {learning.data.tags.slice(0, 3).map((tag) => (
+                          <span class="text-solarized-base01">
+                            #{tag}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </a>
+              </article>
+            ))}
+          </div>
+        )
+      }
+    </section>
+  </div>
+</BaseLayout>
