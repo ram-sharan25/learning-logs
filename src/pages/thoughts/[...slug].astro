@@ -17,11 +17,11 @@ const { Content } = await thought.render();
 <BaseLayout title={`${thought.data.title} - Ram Sharan Rimal`}>
   <article class="prose prose-invert max-w-none">
     <!-- Header -->
-    <header class="mb-8">
-      <h1 class="text-4xl font-bold mb-4 text-solarized-blue">
+    <header class="mb-6 sm:mb-8">
+      <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 text-solarized-blue">
         {thought.data.title}
       </h1>
-      <div class="flex items-center gap-4 text-sm text-solarized-base00">
+      <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-xs sm:text-sm text-solarized-base00">
         <time datetime={thought.data.date.toISOString()}>
           {
             thought.data.date.toLocaleDateString("en-US", {
@@ -33,9 +33,9 @@ const { Content } = await thought.render();
         </time>
         {
           thought.data.tags.length > 0 && (
-            <div class="flex gap-2">
+            <div class="flex flex-wrap gap-1.5 sm:gap-2">
               {thought.data.tags.map((tag) => (
-                <span class="px-2 py-1 bg-solarized-base02 border border-solarized-base01 rounded text-solarized-cyan">
+                <span class="px-2 py-0.5 sm:py-1 bg-solarized-base02 border border-solarized-base01 rounded text-solarized-cyan text-xs sm:text-sm">
                   #{tag}
                 </span>
               ))}
@@ -46,15 +46,15 @@ const { Content } = await thought.render();
     </header>
 
     <!-- Content -->
-    <div class="text-solarized-base0 blog-content">
+    <div class="text-sm sm:text-base text-solarized-base0 blog-content">
       <Content />
     </div>
 
     <!-- Back Link -->
-    <footer class="mt-12 pt-8 border-t border-solarized-base02">
+    <footer class="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-solarized-base02">
       <a
         href="/thoughts"
-        class="text-solarized-blue hover:text-solarized-cyan transition-colors"
+        class="text-sm sm:text-base text-solarized-blue hover:text-solarized-cyan transition-colors"
       >
         ← Back to all thoughts
       </a>

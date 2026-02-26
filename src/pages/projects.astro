@@ -62,34 +62,34 @@ const projects = [
 
 <BaseLayout title="Projects - Ram Sharan Rimal">
   <div>
-    <h1 class="text-4xl font-bold mb-8">
+    <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 sm:mb-8">
       <span class="terminal-prompt"></span>Projects
     </h1>
 
-    <div class="space-y-8">
+    <div class="space-y-6 sm:space-y-8">
       {projects.map((project) => (
-        <article class="p-6 bg-solarized-base02 border border-solarized-base01 rounded-lg hover:border-solarized-blue transition-colors">
-          <div class="mb-4">
-            <div class="flex justify-between items-start mb-2">
-              <h2 class="text-2xl font-bold text-solarized-blue">
+        <article class="p-4 sm:p-6 bg-solarized-base02 border border-solarized-base01 rounded-lg hover:border-solarized-blue transition-colors">
+          <div class="mb-3 sm:mb-4">
+            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-2 gap-1 sm:gap-0">
+              <h2 class="text-lg sm:text-xl md:text-2xl font-bold text-solarized-blue">
                 {project.title}
               </h2>
-              <span class="text-solarized-base00 text-sm">
+              <span class="text-solarized-base00 text-xs sm:text-sm sm:whitespace-nowrap">
                 {project.period}
               </span>
             </div>
-            <p class="text-solarized-base00 text-lg">
+            <p class="text-solarized-base00 text-sm sm:text-base md:text-lg">
               {project.description}
             </p>
           </div>
 
-          <div class="mb-4">
-            <h3 class="text-sm font-bold text-solarized-cyan mb-2">
+          <div class="mb-3 sm:mb-4">
+            <h3 class="text-xs sm:text-sm font-bold text-solarized-cyan mb-2">
               Technologies:
             </h3>
-            <div class="flex flex-wrap gap-2">
+            <div class="flex flex-wrap gap-1.5 sm:gap-2">
               {project.technologies.map((tech) => (
-                <span class="px-3 py-1 bg-solarized-base03 border border-solarized-base01 rounded text-sm text-solarized-cyan">
+                <span class="px-2 py-0.5 sm:px-3 sm:py-1 bg-solarized-base03 border border-solarized-base01 rounded text-xs sm:text-sm text-solarized-cyan">
                   {tech}
                 </span>
               ))}
@@ -97,10 +97,10 @@ const projects = [
           </div>
 
           <div>
-            <h3 class="text-sm font-bold text-solarized-cyan mb-2">
+            <h3 class="text-xs sm:text-sm font-bold text-solarized-cyan mb-2">
               Key Highlights:
             </h3>
-            <ul class="list-disc list-inside space-y-1 text-solarized-base00">
+            <ul class="list-disc list-inside space-y-1 text-xs sm:text-sm text-solarized-base00">
               {project.highlights.map((highlight) => (
                 <li>{highlight}</li>
               ))}
@@ -110,11 +110,11 @@ const projects = [
       ))}
     </div>
 
-    <div class="mt-12 p-6 bg-solarized-base02 border-2 border-solarized-cyan rounded-lg">
-      <h2 class="text-xl font-bold text-solarized-cyan mb-4">
+    <div class="mt-8 sm:mt-12 p-4 sm:p-6 bg-solarized-base02 border-2 border-solarized-cyan rounded-lg">
+      <h2 class="text-lg sm:text-xl font-bold text-solarized-cyan mb-3 sm:mb-4">
         More Projects Coming Soon
       </h2>
-      <p class="text-solarized-base00">
+      <p class="text-sm sm:text-base text-solarized-base00">
         I'm constantly working on new projects and experiments. Check out my{' '}
         <a href="https://github.com/ram-sharan25" target="_blank" rel="noopener noreferrer" class="text-solarized-blue hover:text-solarized-cyan">
           GitHub

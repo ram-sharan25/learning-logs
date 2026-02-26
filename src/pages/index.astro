@@ -9,22 +9,22 @@ const recentPosts = allPosts
 ---
 
 <BaseLayout title="Ram Sharan Rimal - Software Engineer & Learner">
-  <div class="space-y-8">
+  <div class="space-y-6 md:space-y-8">
     <!-- Hero Section -->
-    <section class="py-12">
-      <h1 class="text-4xl font-bold mb-4">
+    <section class="py-6 sm:py-8 md:py-12">
+      <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 md:mb-4">
         <span class="terminal-prompt"></span>Hello, I'm Ram<span class="cursor"
         ></span>
       </h1>
-      <p class="text-xl text-solarized-base0 mb-6">
+      <p class="text-base sm:text-lg md:text-xl text-solarized-base0 mb-4 md:mb-6">
         Software Engineer specializing in full-stack development with React,
         Node.js, and TypeScript. Currently a Graduate Research Assistant at
         NASA-IMPACT.
       </p>
       <!-- About Section -->
       <section class="py-2">
-        <h2 class="text-2xl font-bold mb-1">About Me</h2>
-        <div class="space-y-4 text-solarized-base0">
+        <h2 class="text-xl sm:text-2xl font-bold mb-1">About Me</h2>
+        <div class="space-y-3 sm:space-y-4 text-sm sm:text-base text-solarized-base0">
           <p>
             I'm a versatile Software Engineer with 4+ years of professional
             experience in full-stack development, specializing in React,
@@ -48,14 +48,14 @@ const recentPosts = allPosts
         <div class="max-w pt-4">
           <!-- Top horizontal line -->
 
-          <div class="flex gap-3">
-            <span class="text-xl">Socials:</span>
+          <div class="flex flex-wrap gap-2 sm:gap-3 items-center">
+            <span class="text-base sm:text-xl">Socials:</span>
             <a
               href="mailto:rimal.ram25@gmail.com"
               class="flex text-base text-solarized-base0 hover:text-solarized-blue transition-colors"
             >
               <svg
-                class="w-5 h-5 fill-current"
+                class="w-4 h-4 sm:w-5 sm:h-5 fill-current"
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
               >
@@ -71,7 +71,7 @@ const recentPosts = allPosts
               class="flex text-base text-solarized-base0 hover:text-solarized-blue transition-colors"
             >
               <svg
-                class="w-5 h-5 fill-current"
+                class="w-4 h-4 sm:w-5 sm:h-5 fill-current"
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
               >
@@ -87,7 +87,7 @@ const recentPosts = allPosts
               class="flex text-base text-solarized-base0 hover:text-solarized-blue transition-colors"
             >
               <svg
-                class="w-5 h-5 fill-current"
+                class="w-4 h-4 sm:w-5 sm:h-5 fill-current"
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
               >
@@ -103,7 +103,7 @@ const recentPosts = allPosts
               class="flex text-base text-solarized-base0 hover:text-solarized-blue transition-colors"
             >
               <svg
-                class="w-5 h-5 fill-current"
+                class="w-4 h-4 sm:w-5 sm:h-5 fill-current"
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
               >
@@ -115,13 +115,13 @@ const recentPosts = allPosts
           </div>
 
           <!-- Bottom horizontal line -->
-          <hr class="border-t border-solarized-base01 mt-10" />
+          <hr class="border-t border-solarized-base01 mt-6 sm:mt-10" />
         </div>
       </section>
-      <div class="flex gap-4">
+      <div class="flex gap-3 sm:gap-4">
         <a
           href="/blog"
-          class="px-6 py-3 bg-solarized-base02 border-2 border-solarized-blue text-solarized-blue hover:bg-solarized-blue hover:text-solarized-base03 transition-all rounded"
+          class="px-4 py-2 sm:px-6 sm:py-3 text-sm sm:text-base bg-solarized-base02 border-2 border-solarized-blue text-solarized-blue hover:bg-solarized-blue hover:text-solarized-base03 transition-all rounded"
         >
           Read My Blog →
         </a>
@@ -131,18 +131,18 @@ const recentPosts = allPosts
     {
       recentPosts.length > 0 && (
         <section>
-          <h2 class="text-2xl font-bold mb-6">Recent Posts</h2>
-          <div class="space-y-5">
+          <h2 class="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Recent Posts</h2>
+          <div class="space-y-4 sm:space-y-5">
             {recentPosts.map((post) => (
               <article>
                 <a href={`/blog/${post.slug}`} class="group block">
-                  <div class="flex justify-between items-baseline mb-1">
-                    <h3 class="text-base group-hover:text-solarized-blue transition-colors" style="color: var(--color-orange);">
+                  <div class="flex flex-col sm:flex-row sm:justify-between sm:items-baseline mb-1 gap-1 sm:gap-0">
+                    <h3 class="text-sm sm:text-base group-hover:text-solarized-blue transition-colors" style="color: var(--color-orange);">
                       {post.data.title}
                     </h3>
                     <time
                       datetime={post.data.date.toISOString()}
-                      class="text-sm text-solarized-base00 ml-4 whitespace-nowrap"
+                      class="text-xs sm:text-sm text-solarized-base00 sm:ml-4 sm:whitespace-nowrap"
                     >
                       {post.data.date
                         .toLocaleDateString("en-US", {
@@ -154,7 +154,7 @@ const recentPosts = allPosts
                     </time>
                   </div>
                   {post.data.description && (
-                    <p class="text-sm text-solarized-base00">
+                    <p class="text-xs sm:text-sm text-solarized-base00">
                       {post.data.description}
                     </p>
                   )}
@@ -164,7 +164,7 @@ const recentPosts = allPosts
           </div>
           <a
             href="/blog"
-            class="inline-block mt-6 text-solarized-blue hover:text-solarized-cyan transition-colors"
+            class="inline-block mt-4 sm:mt-6 text-sm sm:text-base text-solarized-blue hover:text-solarized-cyan transition-colors"
           >
             View all posts →
           </a>

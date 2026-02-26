@@ -50,8 +50,14 @@ body {
   background: var(--color-bg);
   color: var(--color-text);
   line-height: 1.7;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
+}
+
+@media (min-width: 640px) {
+  body {
+    font-size: 16px;
+  }
 }
 
 /* Typography */
@@ -64,15 +70,39 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  font-size: 2.5rem;
+  font-size: 1.75rem;
   border-bottom: 2px solid var(--color-accent);
   padding-bottom: 0.5rem;
   color: var(--color-accent);
 }
 
+@media (min-width: 640px) {
+  h1 {
+    font-size: 2.25rem;
+  }
+}
+
+@media (min-width: 768px) {
+  h1 {
+    font-size: 2.5rem;
+  }
+}
+
 h2 {
-  font-size: 2rem;
+  font-size: 1.5rem;
   color: var(--color-orange);
+}
+
+@media (min-width: 640px) {
+  h2 {
+    font-size: 1.75rem;
+  }
+}
+
+@media (min-width: 768px) {
+  h2 {
+    font-size: 2rem;
+  }
 }
 
 h3, h4, h5, h6 {
@@ -80,8 +110,14 @@ h3, h4, h5, h6 {
 }
 
 h3 {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   color: var(--color-accent-secondary);
+}
+
+@media (min-width: 640px) {
+  h3 {
+    font-size: 1.5rem;
+  }
 }
 
 p {
@@ -211,7 +247,19 @@ hr {
 .container {
   max-width: 48rem;
   margin: 0 auto;
-  padding: 2rem 1rem;
+  padding: 1rem;
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding: 1.5rem 1rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 2rem 1rem;
+  }
 }
 
 /* Navigation */
