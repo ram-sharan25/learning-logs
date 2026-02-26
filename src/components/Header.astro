@@ -1,36 +1,119 @@
 ---
+import ThemeToggle from './ThemeToggle.astro';
 const currentPath = Astro.url.pathname;
 ---
 
 <header class="border-b border-solarized-base02">
-  <nav class="container mx-auto px-4 py-4">
+  <nav class="container mx-auto px-4 py-3 md:py-4">
     <div class="flex items-center justify-between">
       <a
         href="/"
-        class="text-solarized-blue font-bold text-xl hover:text-solarized-cyan border-none transition-colors"
+        class="text-solarized-blue font-bold text-lg md:text-xl hover:text-solarized-blue border-none transition-colors"
       >
-        <span class="terminal-prompt"></span>ram@sharan
+        ram_sharan
       </a>
-      <div class="flex gap-6">
+
+      <!-- Desktop Navigation (hidden on mobile) -->
+      <div class="hidden md:flex gap-6 items-center text-base">
         <a
           href="/"
           class={`hover:text-solarized-blue border-none transition-colors ${currentPath === "/" ? "text-solarized-blue" : "text-solarized-base0"}`}
         >
-          Home
+          home
         </a>
         <a
           href="/blog"
           class={`hover:text-solarized-blue border-none transition-colors ${currentPath.startsWith("/blog") ? "text-solarized-blue" : "text-solarized-base0"}`}
         >
-          Blog
+          blog
         </a>
         <a
           href="/learnings"
           class={`hover:text-solarized-blue border-none transition-colors ${currentPath.startsWith("/learnings") ? "text-solarized-blue" : "text-solarized-base0"}`}
         >
-          Learning Logs
+          logs
         </a>
+        <a
+          href="/thoughts"
+          class={`hover:text-solarized-blue border-none transition-colors ${currentPath.startsWith("/thoughts") ? "text-solarized-blue" : "text-solarized-base0"}`}
+        >
+          thoughts
+        </a>
+        <ThemeToggle />
       </div>
+
+      <!-- Mobile Controls (theme toggle + hamburger, visible on mobile only) -->
+      <div class="md:hidden flex items-center gap-2">
+        <ThemeToggle />
+        <button
+          id="mobile-menu-button"
+          class="flex flex-col gap-1.5 p-2 hover:opacity-70 transition-opacity"
+          aria-label="Toggle menu"
+        >
+          <span class="w-6 h-0.5 bg-solarized-blue block"></span>
+          <span class="w-6 h-0.5 bg-solarized-blue block"></span>
+          <span class="w-6 h-0.5 bg-solarized-blue block"></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu (hidden by default, shown when hamburger clicked) -->
+    <div
+      id="mobile-menu"
+      class="hidden md:hidden flex-col gap-4 py-4 border-t border-solarized-base02 mt-3"
+    >
+      <a
+        href="/"
+        class={`hover:text-solarized-blue border-none transition-colors ${currentPath === "/" ? "text-solarized-blue" : "text-solarized-base0"}`}
+      >
+        home
+      </a>
+      <a
+        href="/blog"
+        class={`hover:text-solarized-blue border-none transition-colors ${currentPath.startsWith("/blog") ? "text-solarized-blue" : "text-solarized-base0"}`}
+      >
+        blog
+      </a>
+      <a
+        href="/learnings"
+        class={`hover:text-solarized-blue border-none transition-colors ${currentPath.startsWith("/learnings") ? "text-solarized-blue" : "text-solarized-base0"}`}
+      >
+        logs
+      </a>
+      <a
+        href="/thoughts"
+        class={`hover:text-solarized-blue border-none transition-colors ${currentPath.startsWith("/thoughts") ? "text-solarized-blue" : "text-solarized-base0"}`}
+      >
+        thoughts
+      </a>
     </div>
   </nav>
 </header>
+
+<script>
+  // Mobile menu toggle
+  const menuButton = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  if (menuButton && mobileMenu) {
+    menuButton.addEventListener('click', () => {
+      const isHidden = mobileMenu.classList.contains('hidden');
+      if (isHidden) {
+        mobileMenu.classList.remove('hidden');
+        mobileMenu.classList.add('flex');
+      } else {
+        mobileMenu.classList.add('hidden');
+        mobileMenu.classList.remove('flex');
+      }
+    });
+
+    // Close menu when clicking on a link
+    const mobileLinks = mobileMenu.querySelectorAll('a');
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        mobileMenu.classList.remove('flex');
+      });
+    });
+  }
+</script>

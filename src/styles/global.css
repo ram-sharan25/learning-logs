@@ -1,29 +1,42 @@
-/* Solarized Dark Theme */
+/* Solarized Theme System */
 
 :root {
-  /* Solarized Dark Colors */
+  /* Solarized Dark Colors (default) */
   --color-bg: #002b36;           /* base03 - main background */
   --color-bg-secondary: #073642;  /* base02 - background highlights */
   --color-bg-tertiary: #586e75;   /* base01 - emphasized content bg */
   --color-text: #839496;          /* base0 - primary text */
   --color-text-secondary: #657b83; /* base00 - body text */
   --color-text-emphasized: #93a1a1; /* base1 - emphasized text */
+  --color-border: #073642;        /* base02 - borders */
 
-  /* Accent colors */
+  /* Accent colors (same in both themes) */
   --color-accent: #268bd2;        /* blue - primary accent */
   --color-accent-secondary: #2aa198; /* cyan - secondary accent */
   --color-accent-alt: #859900;    /* green - alternative accent */
   --color-highlight: #b58900;     /* yellow - highlights */
   --color-special: #d33682;       /* magenta - special elements */
-  --color-border: #073642;        /* base02 - borders */
+  --color-orange: #e67e50;        /* warm orange - content titles */
+  --color-orange-hover: #f09568;  /* lighter warm orange */
 
   /* Link colors */
-  --color-link: #268bd2;          /* blue */
-  --color-link-hover: #2aa198;    /* cyan */
+  --color-link: var(--color-orange);
+  --color-link-hover: var(--color-orange-hover);
 
   /* Typography */
   --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
   --font-sans: 'JetBrains Mono', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* Solarized Light Theme */
+:root[data-theme='light'] {
+  --color-bg: #fdf6e3;           /* base3 - main background */
+  --color-bg-secondary: #eee8d5;  /* base2 - background highlights */
+  --color-bg-tertiary: #93a1a1;   /* base1 - emphasized content bg */
+  --color-text: #657b83;          /* base00 - primary text (gray) */
+  --color-text-secondary: #586e75; /* base01 - body text (darker gray) */
+  --color-text-emphasized: #586e75; /* base01 - emphasized text (darker gray) */
+  --color-border: #eee8d5;        /* base2 - borders */
 }
 
 * {
@@ -36,13 +49,20 @@ body {
   font-family: var(--font-mono);
   background: var(--color-bg);
   color: var(--color-text);
-  line-height: 1.6;
-  font-size: 16px;
+  line-height: 1.7;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+@media (min-width: 640px) {
+  body {
+    font-size: 16px;
+  }
 }
 
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.3;
   margin-top: 2rem;
   margin-bottom: 1rem;
@@ -50,26 +70,60 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  font-size: 2.5rem;
+  font-size: 1.75rem;
   border-bottom: 2px solid var(--color-accent);
   padding-bottom: 0.5rem;
   color: var(--color-accent);
 }
 
+@media (min-width: 640px) {
+  h1 {
+    font-size: 2.25rem;
+  }
+}
+
+@media (min-width: 768px) {
+  h1 {
+    font-size: 2.5rem;
+  }
+}
+
 h2 {
-  font-size: 2rem;
-  border-left: 4px solid var(--color-accent);
-  padding-left: 1rem;
-  color: var(--color-accent);
+  font-size: 1.5rem;
+  color: var(--color-orange);
+}
+
+@media (min-width: 640px) {
+  h2 {
+    font-size: 1.75rem;
+  }
+}
+
+@media (min-width: 768px) {
+  h2 {
+    font-size: 2rem;
+  }
+}
+
+h3, h4, h5, h6 {
+  color: var(--color-orange);
 }
 
 h3 {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   color: var(--color-accent-secondary);
+}
+
+@media (min-width: 640px) {
+  h3 {
+    font-size: 1.5rem;
+  }
 }
 
 p {
   margin-bottom: 1rem;
+  line-height: 1.75;
+  font-weight: 450;
 }
 
 a {
@@ -77,6 +131,7 @@ a {
   text-decoration: none;
   border-bottom: 1px dotted var(--color-link);
   transition: all 0.2s;
+  font-weight: 450;
 }
 
 a:hover {
@@ -192,7 +247,19 @@ hr {
 .container {
   max-width: 48rem;
   margin: 0 auto;
-  padding: 2rem 1rem;
+  padding: 1rem;
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding: 1.5rem 1rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 2rem 1rem;
+  }
 }
 
 /* Navigation */
@@ -202,11 +269,16 @@ nav {
 }
 
 nav a {
-  border: none;
+  border: none !important;
   padding: 0.5rem 1rem;
   display: inline-block;
 }
 
 nav a:hover {
-  background: var(--color-bg-secondary);
+  background: transparent;
+}
+
+/* Hide duplicate h1 in blog/article content */
+.blog-content h1:first-child {
+  display: none;
 }

@@ -2,51 +2,51 @@
 import BaseLayout from "@layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
 
-const allLearnings = await getCollection("learnings", ({ data }) => !data.draft);
-const sortedLearnings = allLearnings.sort(
+const allThoughts = await getCollection("thoughts", ({ data }) => !data.draft);
+const sortedThoughts = allThoughts.sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
 );
 ---
 
-<BaseLayout title="Learning Logs - Ram Sharan Rimal">
+<BaseLayout title="Thoughts - Ram Sharan Rimal">
   <div class="space-y-6 md:space-y-8">
     <!-- Header -->
     <section>
       <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 md:mb-4">
-        <span class="terminal-prompt"></span>Learning Logs<span class="cursor"
+        <span class="terminal-prompt"></span>Thoughts<span class="cursor"
         ></span>
       </h1>
       <p class="text-sm sm:text-base text-solarized-base0">
-        Raw notes, insights, and learnings from books, essays, and explorations.
-        Not polished blog posts—just honest reflections and connections.
+        Essays, reflections, and musings on technology, philosophy, and life.
+        Longer-form pieces where I explore ideas more deeply.
       </p>
     </section>
 
-    <!-- Learnings List -->
+    <!-- Thoughts List -->
     <section>
       {
-        sortedLearnings.length === 0 ? (
-          <p class="text-sm sm:text-base text-solarized-base00">No learning logs yet. Check back soon!</p>
+        sortedThoughts.length === 0 ? (
+          <p class="text-sm sm:text-base text-solarized-base00">No thoughts yet. Check back soon!</p>
         ) : (
           <div class="space-y-4 sm:space-y-5">
-            {sortedLearnings.map((learning) => (
+            {sortedThoughts.map((thought) => (
               <article>
-                <a href={`/learnings/${learning.slug}`} class="group block">
+                <a href={`/thoughts/${thought.slug}`} class="group block">
                   <div class="flex flex-col sm:flex-row sm:justify-between sm:items-baseline mb-1 gap-1 sm:gap-0">
                     <h2 class="text-sm sm:text-base group-hover:text-solarized-blue transition-colors" style="color: var(--color-orange);">
-                      {learning.data.title}
+                      {thought.data.title}
                     </h2>
-                    <time datetime={learning.data.date.toISOString()} class="text-xs sm:text-sm text-solarized-base00 sm:ml-4 sm:whitespace-nowrap">
-                      {learning.data.date.toLocaleDateString("en-US", {
+                    <time datetime={thought.data.date.toISOString()} class="text-xs sm:text-sm text-solarized-base00 sm:ml-4 sm:whitespace-nowrap">
+                      {thought.data.date.toLocaleDateString("en-US", {
                         year: "numeric",
                         month: "2-digit",
                         day: "2-digit",
                       }).replace(/\//g, '.')}
                     </time>
                   </div>
-                  {learning.data.topic && (
+                  {thought.data.description && (
                     <p class="text-xs sm:text-sm text-solarized-base00">
-                      {learning.data.topic}
+                      {thought.data.description}
                     </p>
                   )}
                 </a>

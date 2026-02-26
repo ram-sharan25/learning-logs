@@ -17,12 +17,12 @@ const { Content } = await learning.render();
 <BaseLayout title={`${learning.data.title} - Learning Logs`}>
   <article class="max-w-3xl mx-auto">
     <!-- Header -->
-    <header class="mb-8">
-      <h1 class="text-4xl font-bold mb-4 text-solarized-blue">
+    <header class="mb-6 sm:mb-8">
+      <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 text-solarized-blue">
         {learning.data.title}
       </h1>
 
-      <div class="flex flex-wrap items-center gap-4 text-sm text-solarized-base00 mb-4">
+      <div class="flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm text-solarized-base00 mb-3 sm:mb-4">
         <time datetime={learning.data.date.toISOString()}>
           {
             learning.data.date.toLocaleDateString("en-US", {
@@ -48,9 +48,9 @@ const { Content } = await learning.render();
 
       {
         learning.data.tags.length > 0 && (
-          <div class="flex gap-2 flex-wrap">
+          <div class="flex gap-1.5 sm:gap-2 flex-wrap">
             {learning.data.tags.map((tag) => (
-              <span class="px-3 py-1 bg-solarized-base02 border border-solarized-base01 rounded text-solarized-cyan text-sm">
+              <span class="px-2 py-0.5 sm:px-3 sm:py-1 bg-solarized-base02 border border-solarized-base01 rounded text-solarized-cyan text-xs sm:text-sm">
                 #{tag}
               </span>
             ))}
@@ -60,15 +60,15 @@ const { Content } = await learning.render();
     </header>
 
     <!-- Content -->
-    <div class="prose prose-invert max-w-none">
+    <div class="prose prose-invert max-w-none blog-content text-sm sm:text-base">
       <Content />
     </div>
 
     <!-- Navigation -->
-    <footer class="mt-12 pt-8 border-t border-solarized-base02">
+    <footer class="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-solarized-base02">
       <a
         href="/learnings"
-        class="text-solarized-blue hover:text-solarized-cyan transition-colors"
+        class="text-sm sm:text-base text-solarized-blue hover:text-solarized-cyan transition-colors"
       >
         ← Back to all learnings
       </a>

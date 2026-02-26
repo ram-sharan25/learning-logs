@@ -16,11 +16,11 @@ const { Content } = await post.render();
 
 <BaseLayout title={post.data.title} description={post.data.description}>
   <article class="prose prose-invert max-w-none">
-    <header class="mb-8 pb-8 border-b border-solarized-base02">
-      <h1 class="text-4xl font-bold mb-4 text-solarized-blue">
+    <header class="mb-6 sm:mb-8 pb-6 sm:pb-8 border-b border-solarized-base02">
+      <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 text-solarized-blue">
         {post.data.title}
       </h1>
-      <div class="flex items-center gap-4 text-solarized-base00">
+      <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-xs sm:text-sm text-solarized-base00">
         <time datetime={post.data.date.toISOString()}>
           {post.data.date.toLocaleDateString('en-US', {
             year: 'numeric',
@@ -29,9 +29,9 @@ const { Content } = await post.render();
           })}
         </time>
         {post.data.tags.length > 0 && (
-          <div class="flex gap-2">
+          <div class="flex flex-wrap gap-1.5 sm:gap-2">
             {post.data.tags.map((tag) => (
-              <span class="px-2 py-1 bg-solarized-base02 border border-solarized-base01 rounded text-solarized-cyan text-sm">
+              <span class="px-2 py-0.5 sm:py-1 bg-solarized-base02 border border-solarized-base01 rounded text-solarized-cyan text-xs sm:text-sm">
                 #{tag}
               </span>
             ))}
@@ -40,14 +40,14 @@ const { Content } = await post.render();
       </div>
     </header>
 
-    <div class="blog-content">
+    <div class="blog-content text-sm sm:text-base">
       <Content />
     </div>
 
-    <footer class="mt-12 pt-8 border-t border-solarized-base02">
+    <footer class="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-solarized-base02">
       <a
         href="/blog"
-        class="inline-flex items-center text-solarized-blue hover:text-solarized-cyan transition-colors"
+        class="inline-flex items-center text-sm sm:text-base text-solarized-blue hover:text-solarized-cyan transition-colors"
       >
         ← Back to all posts
       </a>
