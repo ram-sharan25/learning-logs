@@ -1,11 +1,9 @@
 ---
 title: "In the beginning was the command line"
-topic: "In the beginning was the command line"
 date: 2025-08-09
 tags: ["operating-systems", "philosophy", "computing"]
-area: "Software"
-project: "Random Learnings"
 draft: false
+description: "Reflections on Neal Stephenson's essay about the command line, operating systems, and the nature of digital reality."
 ---
 
 **Source**: [In the beginning was the command line](https://web.stanford.edu/class/cs81n/command.txt) by Neal Stephenson

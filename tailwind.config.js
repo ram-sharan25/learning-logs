@@ -5,16 +5,16 @@ export default {
     extend: {
       colors: {
         solarized: {
-          // Background tones
-          'base03': '#002b36', // Main background
-          'base02': '#073642', // Background highlights
-          'base01': '#586e75', // Comments / secondary text
-          'base00': '#657b83', // Body text
-          'base0': '#839496',  // Primary text
-          'base1': '#93a1a1',  // Optional emphasized
-          'base2': '#eee8d5',  // Background highlights (light)
-          'base3': '#fdf6e3',  // Background (light)
-          // Accent colors
+          // Background tones (theme-aware via CSS custom properties)
+          'base03': 'var(--color-bg)',
+          'base02': 'var(--color-bg-secondary)',
+          'base01': 'var(--color-bg-tertiary)',
+          'base00': 'var(--color-text-secondary)',
+          'base0': 'var(--color-text)',
+          'base1': 'var(--color-text-emphasized)',
+          'base2': 'var(--color-bg-secondary)',
+          'base3': 'var(--color-bg)',
+          // Accent colors (same in both themes)
           'yellow': '#b58900',
           'orange': '#cb4b16',
           'red': '#dc322f',
@@ -24,6 +24,9 @@ export default {
           'cyan': '#2aa198',
           'green': '#859900',
         },
+      },
+      borderColor: {
+        DEFAULT: 'var(--color-border)',
       },
       fontFamily: {
         mono: ['"JetBrains Mono"', '"Fira Code"', '"Consolas"', 'monospace'],
