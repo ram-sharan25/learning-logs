@@ -21,6 +21,8 @@ const learningsCollection = defineCollection({
     area: z.string().optional(),
     project: z.string().optional(),
     draft: z.boolean().default(false),
+    difficulty: z.string().optional(),
+    leetcode_link: z.string().optional(),
   }),
 });
 

@@ -167,6 +167,201 @@ pre code {
   color: var(--color-text);
 }
 
+/* Remove horizontal lines in code blocks from Shiki */
+pre code .line {
+  border-bottom: none !important;
+  text-decoration: none !important;
+  display: inline;
+}
+
+pre code span {
+  text-decoration: none !important;
+  border-bottom: none !important;
+}
+
+/* Org-mode HTML export styling */
+.org-content {
+  line-height: 1.75;
+}
+
+/* Org code blocks */
+.org-content .org-src-container {
+  margin: 1.5rem 0;
+}
+
+.org-content pre.src {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-left: 3px solid var(--color-accent);
+  border-radius: 6px;
+  padding: 1rem;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  line-height: 1.6;
+}
+
+/* ============================================
+   ORG-MODE HTMLIZE - Solarized Dark Theme
+   Syntax highlighting via Emacs htmlize export
+   ============================================ */
+
+/* Python Keywords: def, class, return, if, for, while, import, etc. */
+.org-keyword,
+.org-py-builtins {
+  color: #859900; /* solarized green */
+  font-weight: 600;
+}
+
+/* Strings: "string", 'string', """docstring""" */
+.org-string {
+  color: #2aa198; /* solarized cyan */
+}
+
+/* Comments: # comment */
+.org-comment,
+.org-comment-delimiter {
+  color: #586e75; /* solarized base01 - gray */
+  font-style: italic;
+}
+
+/* Docstrings (Python triple quotes) */
+.org-doc {
+  color: #2aa198; /* solarized cyan */
+  font-style: italic;
+}
+
+/* Numbers: 123, 0.5, 1e10 */
+.org-constant {
+  color: #d33682; /* solarized magenta */
+}
+
+/* Built-in functions: print(), len(), range(), enumerate() */
+.org-builtin,
+.org-py-builtins {
+  color: #b58900; /* solarized yellow */
+  font-weight: 500;
+}
+
+/* Function/Class names in definitions */
+.org-function-name,
+.org-py-def-class {
+  color: #268bd2; /* solarized blue */
+  font-weight: 600;
+}
+
+/* Type annotations and class names */
+.org-type {
+  color: #268bd2; /* solarized blue */
+}
+
+/* Variables and parameters */
+.org-variable-name {
+  color: #839496; /* solarized base0 */
+}
+
+/* Decorators: @property, @staticmethod */
+.org-py-decorators {
+  color: #cb4b16; /* solarized orange */
+  font-weight: 500;
+}
+
+/* Special variables: self, __init__, __name__ */
+.org-py-pseudo-keyword {
+  color: #268bd2; /* solarized blue */
+  font-style: italic;
+}
+
+/* Operators: +, -, *, /, ==, != */
+.org-operator {
+  color: #859900; /* solarized green */
+}
+
+/* Preprocessor (imports, etc.) */
+.org-preprocessor {
+  color: #cb4b16; /* solarized orange */
+}
+
+/* Bash/Shell specific */
+.org-sh-quoted-exec {
+  color: #2aa198; /* solarized cyan */
+}
+
+.org-sh-heredoc {
+  color: #2aa198; /* solarized cyan */
+}
+
+/* JavaScript/JSX specific */
+.org-js-function-name {
+  color: #268bd2; /* solarized blue */
+  font-weight: 600;
+}
+
+.org-js-keyword {
+  color: #859900; /* solarized green */
+  font-weight: 600;
+}
+
+/* Generic highlighting (fallbacks) */
+.org-rainbow-delimiters-depth-1,
+.org-rainbow-delimiters-depth-2,
+.org-rainbow-delimiters-depth-3 {
+  color: var(--color-text);
+}
+
+/* Warning and errors */
+.org-warning {
+  color: #cb4b16; /* solarized orange */
+  font-weight: bold;
+}
+
+.org-error {
+  color: #dc322f; /* solarized red */
+  font-weight: bold;
+}
+
+/* Org tables */
+.org-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+}
+
+.org-content table td,
+.org-content table th {
+  border: 1px solid var(--color-border);
+  padding: 0.75rem;
+  text-align: left;
+}
+
+.org-content table th {
+  background: var(--color-bg-secondary);
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+/* Org results/output */
+.org-content .results,
+.org-content pre.example {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-left: 3px solid var(--color-accent-alt);
+  border-radius: 4px;
+  padding: 0.75rem 1rem;
+  margin: 1rem 0;
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+
+/* Org inline code */
+.org-content code {
+  background: var(--color-bg-secondary);
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-size: 0.9em;
+  font-family: var(--font-mono);
+}
+
 /* Blockquotes */
 blockquote {
   border-left: 4px solid var(--color-accent-secondary);
@@ -185,7 +380,43 @@ ul, ol {
   margin-bottom: 1rem;
 }
 
+ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+}
+
+ol {
+  list-style-type: decimal;
+  padding-left: 1.5rem;
+}
+
 li {
+  margin-bottom: 0.5rem;
+  display: list-item;
+}
+
+/* Org-mode lists */
+.org-content .org-ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin-left: 0;
+  margin-bottom: 1rem;
+}
+
+.org-content .org-ul li {
+  display: list-item;
+  margin-bottom: 0.5rem;
+}
+
+.org-content .org-ol {
+  list-style-type: decimal;
+  padding-left: 1.5rem;
+  margin-left: 0;
+  margin-bottom: 1rem;
+}
+
+.org-content .org-ol li {
+  display: list-item;
   margin-bottom: 0.5rem;
 }
 

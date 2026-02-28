@@ -12,6 +12,9 @@ export async function getStaticPaths() {
 
 const { learning } = Astro.props;
 const { Content } = await learning.render();
+
+// Get raw body for HTML content (org exports)
+const rawBody = learning.body;
 ---
 
 <BaseLayout title={`${learning.data.title} - Learning Logs`}>
@@ -61,7 +64,8 @@ const { Content } = await learning.render();
 
     <!-- Content -->
     <div class="prose prose-invert max-w-none blog-content text-sm sm:text-base">
-      <Content />
+      <!-- Render raw HTML for org-content, use Content component for markdown -->
+      <div set:html={rawBody} />
     </div>
 
     <!-- Navigation -->
