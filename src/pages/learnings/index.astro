@@ -6,6 +6,23 @@ const allLearnings = await getCollection("learnings", ({ data }) => !data.draft)
 const sortedLearnings = allLearnings.sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
 );
+
+// Extract unique topics and count
+const topicCounts = sortedLearnings.reduce((acc, learning) => {
+  const topic = learning.data.topic || "Uncategorized";
+  acc[topic] = (acc[topic] || 0) + 1;
+  return acc;
+}, {} as Record<string, number>);
+
+const topics = Object.keys(topicCounts).sort();
+
+// Group learnings by topic
+const learningsByTopic = sortedLearnings.reduce((acc, learning) => {
+  const topic = learning.data.topic || "Uncategorized";
+  if (!acc[topic]) acc[topic] = [];
+  acc[topic].push(learning);
+  return acc;
+}, {} as Record<string, typeof sortedLearnings>);
 ---
 
 <BaseLayout title="Learning Logs - Ram Sharan Rimal">
@@ -22,39 +39,107 @@ const sortedLearnings = allLearnings.sort(
       </p>
     </section>
 
-    <!-- Learnings List -->
-    <section>
-      {
-        sortedLearnings.length === 0 ? (
-          <p class="text-sm sm:text-base text-solarized-base00">No learning logs yet. Check back soon!</p>
-        ) : (
-          <div class="space-y-4 sm:space-y-5">
-            {sortedLearnings.map((learning) => (
-              <article>
-                <a href={`/learnings/${learning.slug}`} class="group block">
-                  <div class="flex flex-col sm:flex-row sm:justify-between sm:items-baseline mb-1 gap-1 sm:gap-0">
-                    <h2 class="text-sm sm:text-base group-hover:text-solarized-blue transition-colors" style="color: var(--color-orange);">
-                      {learning.data.title}
-                    </h2>
-                    <time datetime={learning.data.date.toISOString()} class="text-xs sm:text-sm text-solarized-base00 sm:ml-4 sm:whitespace-nowrap">
-                      {learning.data.date.toLocaleDateString("en-US", {
-                        year: "numeric",
-                        month: "2-digit",
-                        day: "2-digit",
-                      }).replace(/\//g, '.')}
-                    </time>
-                  </div>
-                  {learning.data.topic && (
-                    <p class="text-xs sm:text-sm text-solarized-base00">
-                      {learning.data.topic}
-                    </p>
-                  )}
-                </a>
-              </article>
+    {sortedLearnings.length === 0 ? (
+      <p class="text-sm sm:text-base text-solarized-base00">No learning logs yet. Check back soon!</p>
+    ) : (
+      <>
+        <!-- Topic Filters -->
+        <section>
+          <div class="flex flex-wrap gap-2">
+            <button
+              data-topic="all"
+              class="topic-filter px-3 py-1.5 text-xs sm:text-sm border border-solarized-blue text-solarized-blue hover:bg-solarized-blue hover:text-solarized-base03 transition-all rounded active"
+            >
+              All ({sortedLearnings.length})
+            </button>
+            {topics.map((topic) => (
+              <button
+                data-topic={topic}
+                class="topic-filter px-3 py-1.5 text-xs sm:text-sm border border-solarized-base01 text-solarized-base0 hover:border-solarized-blue hover:text-solarized-blue transition-all rounded"
+              >
+                {topic} ({topicCounts[topic]})
+              </button>
             ))}
           </div>
-        )
-      }
-    </section>
+        </section>
+
+        <!-- Learnings Grouped by Topic -->
+        <section id="learnings-container">
+          {topics.map((topic) => (
+            <div class="topic-group mb-8" data-topic-name={topic}>
+              <h2 class="text-lg sm:text-xl font-bold mb-4 text-solarized-cyan">
+                {topic} <span class="text-sm text-solarized-base00">({topicCounts[topic]})</span>
+              </h2>
+              <div class="space-y-4 sm:space-y-5">
+                {learningsByTopic[topic].map((learning) => (
+                  <article>
+                    <a href={`/learnings/${learning.slug}`} class="group block">
+                      <div class="flex flex-col sm:flex-row sm:justify-between sm:items-baseline mb-1 gap-1 sm:gap-0">
+                        <h3 class="text-sm sm:text-base group-hover:text-solarized-blue transition-colors" style="color: var(--color-orange);">
+                          {learning.data.title}
+                        </h3>
+                        <time datetime={learning.data.date.toISOString()} class="text-xs sm:text-sm text-solarized-base00 sm:ml-4 sm:whitespace-nowrap">
+                          {learning.data.date.toLocaleDateString("en-US", {
+                            year: "numeric",
+                            month: "2-digit",
+                            day: "2-digit",
+                          }).replace(/\//g, '.')}
+                        </time>
+                      </div>
+                      {learning.data.tags && learning.data.tags.length > 0 && (
+                        <div class="flex flex-wrap gap-2 mt-1">
+                          {learning.data.tags.map((tag) => (
+                            <span class="text-xs text-solarized-base00">#{tag}</span>
+                          ))}
+                        </div>
+                      )}
+                    </a>
+                  </article>
+                ))}
+              </div>
+            </div>
+          ))}
+        </section>
+      </>
+    )}
   </div>
 </BaseLayout>
+
+<style>
+  .topic-filter.active {
+    background-color: var(--color-blue);
+    color: var(--color-base03);
+  }
+</style>
+
+<script>
+  // Topic filtering functionality
+  const filterButtons = document.querySelectorAll('.topic-filter');
+  const topicGroups = document.querySelectorAll('.topic-group');
+
+  filterButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const selectedTopic = button.getAttribute('data-topic');
+
+      // Update active state
+      filterButtons.forEach((btn) => btn.classList.remove('active'));
+      button.classList.add('active');
+
+      // Show/hide topic groups
+      if (selectedTopic === 'all') {
+        topicGroups.forEach((group) => {
+          group.style.display = 'block';
+        });
+      } else {
+        topicGroups.forEach((group) => {
+          const groupTopic = group.getAttribute('data-topic-name');
+          if (groupTopic === selectedTopic) {
+            group.style.display = 'block';
+          } else {
+            group.style.display = 'none';
+          }
+        });
+      }
+    });
+  });
+</script>
